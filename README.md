@@ -50,6 +50,8 @@ Add the CAP Worker script to your HTML:
 
 ```html
 <script src="https://captcha.gurl.eu.org/cap.min.js"></script>
+
+The worker also serves its wasm assets from the same origin under `/cap-assets/`, so the browser does not need jsDelivr during normal solving.
 ```
 
 #### 2. HTML Setup
