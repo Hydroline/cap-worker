@@ -1422,14 +1422,14 @@ widget.addEventListener(<span class="string">"solve"</span>, <span class="key">a
 						toggle.setAttribute('aria-pressed', isDark ? 'true' : 'false');
 					};
 					setIcon();
-						toggle.addEventListener('click', () => {
-							const next = document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-							document.body.setAttribute('data-theme', next);
-							try { localStorage.setItem('theme', next); } catch (_) {}
-							syncWidgetTheme();
-							setIcon();
-						});
-					}
+					toggle.addEventListener('click', () => {
+						const next = document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+						document.body.setAttribute('data-theme', next);
+						try { localStorage.setItem('theme', next); } catch (_) {}
+						syncWidgetTheme();
+						setIcon();
+					});
+				}
 
 				// Copy buttons for code blocks
 				document.querySelectorAll('.code-block').forEach(block => {
