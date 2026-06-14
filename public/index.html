@@ -1115,7 +1115,7 @@
 							<h3>Interactive Demo</h3>
 							<div class="demo-widget">
 								<div class="demo-widget-container">
-									<cap-widget id="cap" data-cap-api-endpoint="https://captcha.gurl.eu.org/api/"></cap-widget>
+									<cap-widget id="cap" data-cap-api-endpoint="https://captcha.gurl.eu.org/api/" data-cap-theme="system"></cap-widget>
 								</div>
 								<div class="demo-status" id="demoStatus">
 									<div class="status-message">Complete the CAPTCHA above to see it in action</div>
@@ -1400,6 +1400,16 @@ widget.addEventListener(<span class="string">"solve"</span>, <span class="key">a
 			// CAPTCHA Demo Initialization
 			document.addEventListener('DOMContentLoaded', function() {
 				const widget = document.querySelector("#cap");
+				const syncWidgetTheme = () => {
+					if (!widget) {
+						return;
+					}
+
+					const theme = document.body.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+					widget.setAttribute('data-cap-theme', theme);
+				};
+
+				syncWidgetTheme();
 				
 				// Theme toggle action
 				const toggle = document.getElementById('themeToggle');
@@ -1412,13 +1422,14 @@ widget.addEventListener(<span class="string">"solve"</span>, <span class="key">a
 						toggle.setAttribute('aria-pressed', isDark ? 'true' : 'false');
 					};
 					setIcon();
-					toggle.addEventListener('click', () => {
-						const next = document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-						document.body.setAttribute('data-theme', next);
-						try { localStorage.setItem('theme', next); } catch (_) {}
-						setIcon();
-					});
-				}
+						toggle.addEventListener('click', () => {
+							const next = document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+							document.body.setAttribute('data-theme', next);
+							try { localStorage.setItem('theme', next); } catch (_) {}
+							syncWidgetTheme();
+							setIcon();
+						});
+					}
 
 				// Copy buttons for code blocks
 				document.querySelectorAll('.code-block').forEach(block => {
